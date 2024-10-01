@@ -1,12 +1,11 @@
-import { Schema, model, Types } from "mongoose";
+import { Schema, model } from "mongoose";
 
 interface IUser {
   username: string;
   lastname: string;
-  dni: string;
   age: number;
   email: string;
-  activities: Types.ObjectId[]; // Array de referències a activitats
+  activities?: []; // Array de referències a activitats
 }
 
 const userSchema = new Schema<IUser>({
@@ -18,13 +17,6 @@ const userSchema = new Schema<IUser>({
   },
   lastname: {
     type: String,
-    required: true,
-    trim: true,
-    minlength: 1,
-  },
-  dni: {
-    type: String,
-    unique: true,
     required: true,
     trim: true,
     minlength: 1,
@@ -41,12 +33,7 @@ const userSchema = new Schema<IUser>({
     trim: true,
     minlength: 1,
   },
-  activities: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Activity", // Referencia a la actividad
-    },
-  ],
+  activities: [],
 });
 
 export const UserModel = model("User", userSchema);

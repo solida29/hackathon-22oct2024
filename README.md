@@ -1,7 +1,26 @@
+# Prova Backend Hackató Saló Ocupació
+
+1. Instalamos las dependencias del proyecto
+
+```sh
+npm install
+```
+
+2. Levantamos el container con Docker y MongoDB
+
+```sh
+docker-compose up
+```
+
+3. Server
+
+```sh
 npm run dev
+```
 
-Architectura MVC
+El proyecto está montado con una architectura MVC
 
+```
 src/
 │
 ├── controllers/
@@ -23,8 +42,10 @@ src/
 │ ├── userRoutes.ts
 │ └── activityRoutes.ts
 │
-├── services/ # Servicios adicionales para la lógica de negocio
-│ └── exportService.js
-│ └── importService.js
+├── services/
+│ └── userService.js
+│ └── activityService.js
 │
 └── index.ts
+
+```

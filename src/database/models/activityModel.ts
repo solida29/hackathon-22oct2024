@@ -1,11 +1,9 @@
-import { Schema, model, Types } from "mongoose";
+import { Schema, model } from "mongoose";
 
 interface IActivity {
   name: string;
   description: string;
   capacity: number;
-  date: Date;
-  participants: Types.ObjectId[]; // Array de referèncias a usuarios
 }
 
 const activitySchema = new Schema<IActivity>({
@@ -27,15 +25,6 @@ const activitySchema = new Schema<IActivity>({
     required: true,
     min: 1,
   },
-  date: {
-    type: Date,
-  },
-  participants: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User", // Referencia a los usuarios
-    },
-  ],
 });
 
-export const UserModel = model("Activity", activitySchema);
+export const activityModel = model("Activity", activitySchema);
