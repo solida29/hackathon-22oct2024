@@ -1,4 +1,23 @@
-node_modules/
-dist/
+# Ignore Mac system files
+.DS_store
+
+# Ignore node_modules folder
+node_modules
+
+# Ignore all text files
+*.txt
+
+# Ignore files related to API keys
+.env
+
+# Ignore dist folder
+dist
+
+# Ignore coverage folder - unit testing
 coverage/
+
+# Ignore visual code workspace config folder
 .vscode/
+
+# Ignore volume mongodb-data folder
+mongodb-data
