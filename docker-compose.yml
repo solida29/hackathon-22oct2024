@@ -1,0 +1,17 @@
+# Use root/password as user/password credentials (in .env file)
+
+version: "3.8"
+
+services:
+  # Database
+  mongoDB:
+    image: mongo
+    container_name: mongodb_hackathon2024
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb-data:/data/db
