@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { connectToMongoDB } from "./database/connectToMongoDB.js";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { router } from "./routes/userRoutes.js";
+import { router } from "./routes/userActivityRoutes.js";
 
 const app = express();
 

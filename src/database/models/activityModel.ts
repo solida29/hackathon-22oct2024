@@ -1,12 +1,12 @@
 import { Schema, model } from "mongoose";
 
-interface IActivity {
+interface IActivityModel {
   name: string;
   description: string;
   capacity: number;
 }
 
-const activitySchema = new Schema<IActivity>({
+const activitySchema = new Schema<IActivityModel>({
   name: {
     type: String,
     unique: true,
@@ -27,4 +27,4 @@ const activitySchema = new Schema<IActivity>({
   },
 });
 
-export const activityModel = model("Activity", activitySchema);
+export const ActivityModel = model<IActivityModel>("Activity", activitySchema);

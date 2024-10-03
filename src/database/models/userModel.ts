@@ -1,14 +1,14 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
-interface IUser {
+interface IUserModel {
   username: string;
   lastname: string;
   age: number;
   email: string;
-  activities?: []; // Array de referències a activitats
+  activities?: Types.ObjectId[]; // Array de referencias a actividades
 }
 
-const userSchema = new Schema<IUser>({
+const userSchema = new Schema<IUserModel>({
   username: {
     type: String,
     required: true,
@@ -32,8 +32,19 @@ const userSchema = new Schema<IUser>({
     required: true,
     trim: true,
     minlength: 1,
+    validate: {
+      validator: function (v: string) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); // Valida formato de email
+      },
+      message: (props: any) => `${props.value} is not a valid email!`,
+    },
   },
-  activities: [],
+  activities: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Activity",
+    },
+  ],
 });
 
-export const UserModel = model("User", userSchema);
+export const UserModel = model<IUserModel>("User", userSchema);

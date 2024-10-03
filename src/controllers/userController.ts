@@ -1,48 +1,39 @@
 import { Request, Response } from "express";
 import { UserModel } from "../database/models/userModel.js";
+import { Types } from "mongoose";
 
-interface IUser {
-  username: string;
-  lastname: string;
-  age: number;
-  email: string;
-  activities?: [];
-}
-
-interface IActivity {
-  name: string;
-  description: string;
-  capacity: number;
-}
-
-// create User in mongoDB
+//---- Create User in mongoDB ––––––––––––––––––––––––––
 async function createUser(
   username: string,
   lastname: string,
   age: number,
   email: string,
-  activities?: []
+  activities?: string[]
 ) {
-  const newUser: IUser = await UserModel.create({
+  // Convertir les chaînes de caractères en ObjectId
+  const activityIds = activities?.map(
+    (activity) => new Types.ObjectId(activity)
+  );
+
+  const newUser = await UserModel.create({
     username,
     lastname,
     age,
     email,
-    activities,
+    activities: activityIds,
   });
   return newUser;
 }
 
-//---- Endpoint for register ----------------------
+//---- Endpoint for register (POST) ----------------------
 export const register = async (req: Request, res: Response) => {
   try {
     const { username, lastname, age, email, activities } = req.body; // desestructuracion del req.body
-    const trimmedUsername = username.trim(); // quitamos espacios ppio y final
     const existingUser = await UserModel.findOne({ email });
 
-    if (!existingUser && trimmedUsername !== "") {
+    if (!existingUser) {
       const newUser = await createUser(
-        trimmedUsername,
+        username,
         lastname,
         age,
         email,
@@ -61,6 +52,23 @@ export const register = async (req: Request, res: Response) => {
       res.status(400).send({ message: "This user already exists" });
     }
   } catch (error) {
+    res.status(500).send({ message: "Internal server error", error });
+  }
+};
+
+//---- Endpoint to GET all users ----------------------
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await UserModel.find({})
+      .populate({
+        path: "activities",
+        model: "Activity",
+        select: { name: 1, _id: 0 }, // Solo selecciona el campo 'name' de Activity
+      })
+      .lean(); // Devuelve objetos planos en lugar de documentos Mongoose
+    res.status(200).send(users); // Devolver los usuarios encontrados
+  } catch (error) {
+    console.error(error);
     res.status(500).send({ message: "Internal server error", error });
   }
 };
