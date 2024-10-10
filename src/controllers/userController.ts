@@ -72,3 +72,9 @@ export const getAllUsers = async (req: Request, res: Response) => {
     res.status(500).send({ message: "Internal server error", error });
   }
 };
+
+//---- Endpoint to GET user by ID ----------------------
+
+//---- Endpoint update user by ID (PUT) ----------------------
+
+//---- Endpoint DELETE user by ID ----------------------

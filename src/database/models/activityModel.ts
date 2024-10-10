@@ -1,9 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 interface IActivityModel {
   name: string;
   description: string;
   capacity: number;
+  users?: Types.ObjectId[]; // Array de referencias a users
 }
 
 const activitySchema = new Schema<IActivityModel>({
@@ -25,6 +26,12 @@ const activitySchema = new Schema<IActivityModel>({
     required: true,
     min: 1,
   },
+  users: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 export const ActivityModel = model<IActivityModel>("Activity", activitySchema);

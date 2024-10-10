@@ -46,8 +46,15 @@ export const registerActivity = async (req: Request, res: Response) => {
 export const getAllActivities = async (req: Request, res: Response) => {
   try {
     const activities = await ActivityModel.find({}).lean();
+    res.status(200).send(activities); // Devolver las actividades encontradas
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error", error });
   }
 };
+
+//---- Endpoint to GET activity by ID ----------------------
+
+//---- Endpoint update activity by ID (PUT) ----------------------
+
+//---- Endpoint DELETE activity by ID ----------------------

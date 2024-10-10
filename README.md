@@ -1,24 +1,28 @@
-# Prova Backend Hackató Saló Ocupació
+# Backend Hackathon - Saló Ocupació
 
-1. Instalamos las dependencias del proyecto
+Technologies: Node.js, Docker and database in MongoDB
+
+## The project
+
+1. Install Project dependencies and dev dependencies
 
 ```sh
 npm install
 ```
 
-2. Levantamos el container con Docker y MongoDB
+2. Docker container with MongoDB database
 
 ```sh
 docker-compose up
 ```
 
-3. Server
+3. Server service
 
 ```sh
 npm run dev
 ```
 
-El proyecto está montado con una architectura MVC
+## Architecture MVC
 
 ```
 src/
@@ -39,12 +43,7 @@ src/
 │ └── activityView.ts
 │
 ├── routes/
-│ ├── userRoutes.ts
-│ └── activityRoutes.ts
-│
-├── services/
-│ └── userService.js
-│ └── activityService.js
+│ └── userActivityRoutes.ts
 │
 └── index.ts
 
