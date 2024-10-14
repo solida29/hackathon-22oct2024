@@ -73,7 +73,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-///---- Endpoint to GET user by ID ----------------------
+//---- Endpoint to GET user by ID ----------------------
 export const getUserById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params; // Obtener el ID de los parámetros de la URL
@@ -153,11 +153,11 @@ export const updateUserById = async (req: Request, res: Response) => {
         email,
         activities: activityIds, // Asignar las actividades actualizadas
       },
-      { new: true, runValidators: true } // `new: true` devuelve el documento actualizado
+      { new: true, runValidators: true } // new: true devuelve el documento actualizado
     ).populate({
       path: "activities",
       model: "Activity",
-      select: { name: 1, _id: 0 },
+      select: { name: 1, _id: 1 },
     });
 
     // Si el usuario no se encuentra
